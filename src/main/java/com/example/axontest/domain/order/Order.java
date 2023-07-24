@@ -1,6 +1,8 @@
 package com.example.axontest.domain.order;
 
-public class Order {
+import java.io.Serializable;
+
+public class Order implements Serializable {
 
     private final String orderId;
     private final String productId;

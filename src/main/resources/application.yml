@@ -2,4 +2,20 @@ axon:
   axonserver:
     servers: localhost:8124
   serializer:
-    general: xstream
+    general: jackson
+# Kafka Producer 설정
+  kafka:
+    producer:
+      bootstrap-servers: localhost:29092
+      client-id: my-producer-id
+      event-processor-mode: pooled_streaming
+      retries: 1
+    # Kafka Consumer 설정
+    consumer:
+      bootstrap-servers: localhost:29092
+      client-id: my-consumer-id
+      group-id: my-group-id
+      event-processor-mode: pooled_streaming
+    default-topic: my-topic
+
+
