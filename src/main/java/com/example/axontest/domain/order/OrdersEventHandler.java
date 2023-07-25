@@ -5,6 +5,7 @@ import com.example.axontest.domain.order.event.OrderConfirmedEvent;
 import com.example.axontest.domain.order.event.OrderCreatedEvent;
 import com.example.axontest.domain.order.event.OrderShippedEvent;
 import com.example.axontest.domain.order.query.FindAllOrderedProductsQuery;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.Map;
 @Service
 public class OrdersEventHandler {
 
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
     private final Map<String, Order> orders = new HashMap<>();
 
     @EventHandler
@@ -38,7 +40,8 @@ public class OrdersEventHandler {
     }
 
     @QueryHandler
-    public List<Order> handle(FindAllOrderedProductsQuery query) {
-        return new ArrayList<>(orders.values());
+    public OrderResponse handle(FindAllOrderedProductsQuery query) {
+        //List로 반환
+        return new OrderResponse(new ArrayList<>(orders.values()));
     }
 }

@@ -1,9 +1,15 @@
 package com.example.axontest.domain.order;
 
+import lombok.*;
+
+import java.io.Serializable;
+
+
+@Getter
 public class Order {
 
-    private final String orderId;
-    private final String productId;
+    private String orderId;
+    private String productId;
     private OrderStatus orderStatus;
 
     public Order(String orderId, String productId) {

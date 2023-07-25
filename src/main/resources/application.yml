@@ -2,4 +2,4 @@ axon:
   axonserver:
     servers: localhost:8124
   serializer:
-    general: xstream
+    general: jackson
