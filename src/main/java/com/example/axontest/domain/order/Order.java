@@ -1,18 +1,18 @@
 package com.example.axontest.domain.order;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.io.Serializable;
-
-
 @Getter
-public class Order implements Serializable {
+public class Order {
 
     private final String orderId;
     private final String productId;
     private OrderStatus orderStatus;
 
-    public Order(String orderId, String productId) {
+    @JsonCreator
+    public Order(@JsonProperty("orderId")String orderId,@JsonProperty("productId") String productId) {
         this.orderId = orderId;
         this.productId = productId;
         orderStatus = OrderStatus.CREATED;
