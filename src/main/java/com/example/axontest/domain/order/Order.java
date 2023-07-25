@@ -6,10 +6,10 @@ import java.io.Serializable;
 
 
 @Getter
-public class Order {
+public class Order implements Serializable {
 
-    private String orderId;
-    private String productId;
+    private final String orderId;
+    private final String productId;
     private OrderStatus orderStatus;
 
     public Order(String orderId, String productId) {

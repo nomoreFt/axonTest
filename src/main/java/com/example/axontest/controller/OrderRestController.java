@@ -25,7 +25,7 @@ public class OrderRestController {
     private final CommandGateway commandGateway;
     private final QueryGateway queryGateway;
 
-    @GetMapping("/ship-order")
+    @PostMapping("/ship-order")
     public CompletableFuture<Void> shipOrder() {
         String orderId = UUID.randomUUID().toString();
         return commandGateway.send(new CreateOrderCommand(orderId, "Deluxe Chair"))
