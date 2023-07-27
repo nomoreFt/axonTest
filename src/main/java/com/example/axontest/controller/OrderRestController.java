@@ -11,6 +11,7 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class OrderRestController {
     private final CommandGateway commandGateway;
     private final QueryGateway queryGateway;
 
-    @PostMapping("/ship-order")
+    @GetMapping("/ship-order")
     public CompletableFuture<Void> shipOrder() {
         String orderId = UUID.randomUUID().toString();
         return commandGateway.send(new CreateOrderCommand(orderId, "Deluxe Chair"))
@@ -33,7 +34,7 @@ public class OrderRestController {
                 .thenCompose(result -> commandGateway.send(new ShipOrderCommand(orderId)));
     }
 
-    @PostMapping("/all-orders")
+    @GetMapping("/all-orders")
     public CompletableFuture<OrderResponse>  findAllOrders() {
         CompletableFuture<OrderResponse> query = queryGateway.query(new FindAllOrderedProductsQuery(),
                 ResponseTypes.instanceOf(OrderResponse.class));

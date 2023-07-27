@@ -31,12 +31,12 @@ dependencies {
 
     //axon framwork
     implementation 'org.axonframework:axon-spring-boot-starter'
-    implementation 'org.axonframework.extensions.kafka:axon-kafka-spring-boot-autoconfigure'
+    //implementation 'org.axonframework.extensions.kafka:axon-kafka-spring-boot-autoconfigure'
     //axon-bom
     implementation platform('org.axonframework:axon-bom:4.8.0')
     //axon kafka extension
-    implementation 'org.axonframework.extensions.kafka:axon-kafka-spring-boot-starter'
-    implementation 'org.apache.kafka:kafka-clients'
+    /*implementation 'org.axonframework.extensions.kafka:axon-kafka-spring-boot-starter'
+    implementation 'org.apache.kafka:kafka-clients'*/
     //axontest
     testImplementation 'org.axonframework:axon-test'
 

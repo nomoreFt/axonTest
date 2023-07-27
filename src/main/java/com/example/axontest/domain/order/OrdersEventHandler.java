@@ -1,9 +1,7 @@
 package com.example.axontest.domain.order;
 
 import com.example.axontest.domain.order.Order;
-import com.example.axontest.domain.order.event.OrderConfirmedEvent;
-import com.example.axontest.domain.order.event.OrderCreatedEvent;
-import com.example.axontest.domain.order.event.OrderShippedEvent;
+import com.example.axontest.domain.order.event.*;
 import com.example.axontest.domain.order.query.FindAllOrderedProductsQuery;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.axonframework.eventhandling.EventHandler;
@@ -16,32 +14,30 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class OrdersEventHandler {
+public interface OrdersEventHandler {
 
-    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
-    private final Map<String, Order> orders = new HashMap<>();
+        void on(OrderCreatedEvent event);
 
-    @EventHandler
-    public void on(OrderCreatedEvent event) {
-        String orderId = event.orderId();
-        orders.put(orderId, new Order(orderId, event.productId()));
+        void on(ProductAddedEvent event);
+
+        void on(ProductCountIncrementedEvent event);
+
+        void on(ProductCountDecrementedEvent event);
+
+        void on(ProductRemovedEvent event);
+
+        void on(OrderConfirmedEvent event);
+
+        void on(OrderShippedEvent event);
+
+        List<Order> handle(FindAllOrderedProductsQuery query);
+
+        /*Publisher<Order> handleStreaming(FindAllOrderedProductsQuery query);
+
+        Integer handle(TotalProductsShippedQuery query);
+
+        Order handle(OrderUpdatesQuery query);
+
+        void reset(List<Order> orderList);*/
     }
 
-    @EventHandler
-    public void on(OrderConfirmedEvent event) {
-        String orderId = event.orderId();
-        orders.get(orderId).setOrderConfirmed();
-    }
-
-    @EventHandler
-    public void on(OrderShippedEvent event) {
-        String orderId = event.orderId();
-        orders.get(orderId).setOrderShipped();
-    }
-
-    @QueryHandler
-    public OrderResponse handle(FindAllOrderedProductsQuery query) {
-        //List로 반환
-        return new OrderResponse(new ArrayList<>(orders.values()));
-    }
-}
